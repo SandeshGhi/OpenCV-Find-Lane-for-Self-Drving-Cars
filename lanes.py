@@ -55,7 +55,7 @@ def region_of_interest(image):
     return masked_image
  
     ## FOR IMAGE
-#image = cv2.imread('C:/Users/Acer/OneDrive - Tribhuvan University/Desktop/finding-lanes/road_image.jpg')
+image = cv2.imread('C:/Users/Acer/OneDrive - Tribhuvan University/Desktop/finding-lanes/road_image.jpg')
 #lane_image = np.copy(image)
 #canny_image = canny(lane_image)
 #cropped_image = region_of_interest(canny_image)
@@ -81,4 +81,7 @@ while(cap.isOpened()):
     # Blending
     combo_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
     cv2.imshow('result', combo_image)
-    cv2.waitKey(1)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
