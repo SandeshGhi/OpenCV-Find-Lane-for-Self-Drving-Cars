@@ -86,4 +86,19 @@ while(cap.isOpened()):
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cap.release()
+
+    ## FOR GIFS
+roadgif = cv2.imread('C:/Users/Acer/Desktop/finding-lanes/road_image.gif')
+lanegif = np.copy(roadgif)
+canny_image = canny(lanegif)
+cropped_image = region_of_interest(canny_image)
+## Hough Lines
+roadBoundries = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 180, np.array([]), minLineLength= 40, maxLineGap= 5)
+averaged_lines = average_slope_intercept(lanegif, roadBoundries)
+line_image = display_lines(lanegif, averaged_lines)
+## Blending
+combogif = cv2.addWeighted(lanegif, 0.8, line_image, 1, 1)
+cv2.imshow('result', combogif)
+cv2.waitKey(0)
+
 cv2.destroyAllWindows()
