@@ -55,18 +55,18 @@ def region_of_interest(image):
     return masked_image
  
     ## FOR IMAGE
-image = cv2.imread('C:/Users/Acer/Desktop/finding-lanes/road_image.jpg')
-#lane_image = np.copy(image)
-#canny_image = canny(lane_image)
-#cropped_image = region_of_interest(canny_image)
+roadImages = cv2.imread('C:/Users/Acer/Desktop/finding-lanes/road_image.jpg')
+lane_image = np.copy(roadImages)
+canny_image = canny(lane_image)
+cropped_image = region_of_interest(canny_image)
 ## Hough Lines
-#lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 180, np.array([]), minLineLength= 40, maxLineGap= 5)
-#averaged_lines = average_slope_intercept(lane_image, lines)
-#line_image = display_lines(lane_image, averaged_lines)
+roadBoundries = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 180, np.array([]), minLineLength= 40, maxLineGap= 5)
+averaged_lines = average_slope_intercept(lane_image, roadBoundries)
+line_image = display_lines(lane_image, averaged_lines)
 ## Blending
-#combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
-#cv2.imshow('result', combo_image)
-#cv2.waitKey(0)
+combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+cv2.imshow('result', combo_image)
+cv2.waitKey(0)
 
 ## FOR VIDEO
 cap = cv2.VideoCapture("C:/Users/Acer/Desktop/finding-lanes/test2.mp4")
